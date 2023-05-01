@@ -1,4 +1,4 @@
-﻿namespace OnlineMarket.Models
+﻿namespace OnlineMarket.Models.Repository
 {
     public class User
     {
@@ -7,5 +7,6 @@
         public string Surname { get; set; }
         public string Email { get; set; }
         public string Pwd { get; set; }
+
     }
 }

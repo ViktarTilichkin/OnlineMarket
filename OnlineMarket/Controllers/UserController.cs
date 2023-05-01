@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using OnlineMarket.Models;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using OnlineMarket.Models.Repository;
 using OnlineMarket.Services;
 
 namespace OnlineMarket.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
@@ -14,6 +16,7 @@ namespace OnlineMarket.Controllers
         {
             m_Service = rep;
         }
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -26,6 +29,7 @@ namespace OnlineMarket.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [AllowAnonymous]
         [HttpGet("/{id}")]
         public async Task<IActionResult> GetByID(int id)
         {

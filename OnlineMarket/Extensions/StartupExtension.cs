@@ -16,6 +16,7 @@ namespace OnlineMarket.Extensions
         {
 
             services.AddTransient<UserService>();
+            services.AddTransient<AccountService>();
         }
     }
 }

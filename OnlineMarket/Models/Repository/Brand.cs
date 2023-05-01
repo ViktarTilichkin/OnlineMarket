@@ -1,6 +1,6 @@
-﻿namespace OnlineMarket.Models
+﻿namespace OnlineMarket.Models.Repository
 {
-    public class Category
+    public class Brand
     {
         public int Id { get; set; }
         public string Name { get; set; }

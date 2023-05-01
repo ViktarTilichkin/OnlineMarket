@@ -1,5 +1,8 @@
 ﻿using System.Text.Json;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using OnlineMarket.Extensions;
+using OnlineMarket.Options;
 
 namespace OnlineMarket.Stratup
 {
@@ -17,6 +20,24 @@ namespace OnlineMarket.Stratup
             // Добавление сервисов, использующих ConnectionString
             services.AddRepositories(connectionString);
             services.AddServices();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.RequireHttpsMetadata = false;
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuer = true, // укзывает, будет ли валидироваться издатель при валидации токена
+                            ValidIssuer = AuthOptions.ISSUER, // строка, представляющая издателя
+                            ValidateAudience = true, // будет ли валидироваться потребитель токена
+                            ValidAudience = AuthOptions.AUDIENCE, // установка потребителя токена
+                            ValidateLifetime = true, // будет ли валидироваться время существования
+                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(), // установка ключа безопасности
+                            ValidateIssuerSigningKey = true, // валидация ключа безопасности
+                        };
+                    });
+
+
             // Настройка сервисов, используемых в приложении (поговорим далее)
             services.AddControllers().AddJsonOptions(options =>
             {
@@ -41,7 +62,9 @@ namespace OnlineMarket.Stratup
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {

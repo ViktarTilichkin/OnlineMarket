@@ -1,4 +1,4 @@
-﻿namespace OnlineMarket.Models
+﻿namespace OnlineMarket.Models.Repository
 {
     public class Product
     {

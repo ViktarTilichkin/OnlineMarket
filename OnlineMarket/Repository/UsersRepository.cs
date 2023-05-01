@@ -1,21 +1,20 @@
 ﻿using System.Text;
 using MySql.Data.MySqlClient;
-using OnlineMarket.Models;
+using OnlineMarket.Models.Repository;
 
 namespace OnlineMarket.Repository
 {
-    public class UsersRepository
+    public class UsersRepository : BaseRepository
     {
-
-        private readonly MySqlConnection m_Connection;
         private const string SQL_GET_ALL = "select Id, Name, Surname, Email, Pwd from users;";
         private const string SQL_GET_BY_ID = "select Id, Name, Surname, Email, Pwd from users where id = {0};";
+        private const string SQL_GET_BY_EMAIL = "select Id, Name, Surname, Email, Pwd from users where email = @email;";
         private const string SQL_CREATE = "insert into users(Name, Surname, Email, Pwd) values(?, ?, ?, ?);";
         private const string SQL_UPDATE = "update users set Name = ?, Surname = ?, Email = ?, Pwd = ? where email = ?;";
         private const string SQL_DELETE = "delete from users where id = {0};";
-        public UsersRepository(MySqlConnection connect)
+
+        public UsersRepository(MySqlConnection connect) : base(connect)
         {
-            m_Connection = connect;
         }
         public async Task<List<User>> GetAll()
         {
@@ -66,6 +65,37 @@ namespace OnlineMarket.Repository
                     Pwd = reader.GetString(4)
                 };
                 return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                m_Connection.Close();
+            }
+        }
+        public async Task<User> GetByEmail(string email)
+        {
+            try
+            {
+                m_Connection.Open();
+                MySqlCommand command = new MySqlCommand(SQL_GET_BY_EMAIL, m_Connection);
+                command.Parameters.AddWithValue($"@email", email);
+                var reader = await command.ExecuteReaderAsync();
+                if (reader.Read())
+                {
+                    var result = new User()
+                    {
+                        Id = reader.GetInt32(0),
+                        Name = reader.GetString(1),
+                        Surname = reader.GetString(2),
+                        Email = reader.GetString(3),
+                        Pwd = reader.GetString(4)
+                    };
+                    return result;
+                }
+                return null;
             }
             catch (Exception ex)
             {

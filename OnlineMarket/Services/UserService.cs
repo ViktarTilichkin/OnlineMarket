@@ -1,5 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
-using OnlineMarket.Models;
+using OnlineMarket.Models.Repository;
 using OnlineMarket.Repository;
 
 namespace OnlineMarket.Services
@@ -30,6 +30,12 @@ namespace OnlineMarket.Services
         public async Task<bool> Delete(int id)
         {
             return await m_Service.Delete(id);
+        }
+
+        public async Task<User> GetUserByEmail(string email)
+        {
+            if (email == null) throw new ArgumentNullException(nameof(email));
+            return await m_Service.GetByEmail(email);
         }
     }
 }
