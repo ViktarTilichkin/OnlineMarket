@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OnlineMarket.Models.Repository;
 using OnlineMarket.Services;
 
@@ -7,20 +6,19 @@ namespace OnlineMarket.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    public class ProductController : ControllerBase
     {
-        private readonly UserService m_Service;
-
-        public UserController(UserService rep)
+        private readonly ProductService m_ProductService;
+        public ProductController(ProductService productService)
         {
-            m_Service = rep;
+            m_ProductService = productService;
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             try
             {
-                return Ok(await m_Service.GetAll());
+                return Ok(await m_ProductService.GetAll());
             }
             catch (Exception ex)
             {
@@ -32,7 +30,7 @@ namespace OnlineMarket.Controllers
         {
             try
             {
-                return Ok(await m_Service.GetById(id));
+                return Ok(await m_ProductService.GetById(id));
             }
             catch (Exception ex)
             {
@@ -40,11 +38,11 @@ namespace OnlineMarket.Controllers
             }
         }
         [HttpPost("create")]
-        public async Task<IActionResult> CreateUser(User user)
+        public async Task<IActionResult> CreateUser()
         {
             try
             {
-                return Ok(await m_Service.Create(user));
+                return Ok(await m_ProductService.Create());
             }
             catch (Exception ex)
             {
@@ -52,11 +50,11 @@ namespace OnlineMarket.Controllers
             }
         }
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateUser(User user)
+        public async Task<IActionResult> UpdateUser()
         {
             try
             {
-                return Ok(await m_Service.Update(user));
+                return Ok(await m_ProductService.Update());
             }
             catch (Exception ex)
             {
@@ -68,7 +66,7 @@ namespace OnlineMarket.Controllers
         {
             try
             {
-                return Ok(await m_Service.Delete(id));
+                return Ok(await m_ProductService.Delete(id));
             }
             catch (Exception ex)
             {

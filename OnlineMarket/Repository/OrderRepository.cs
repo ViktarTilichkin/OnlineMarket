@@ -42,7 +42,7 @@ namespace OnlineMarket.Repository
                 m_Connection.Close();
             }
         }
-        public async Task<Category> GetById(int Id)
+        public async Task<OrderProduct> GetById(int Id)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace OnlineMarket.Repository
                 var result = new OrderProduct()
                 {
                     Id = reader.GetInt32(0),
-                    Name = reader.GetString(1)
+                    //Name = reader.GetString(1)
                 };
                 return result;
             }

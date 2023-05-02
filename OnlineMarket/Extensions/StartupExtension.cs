@@ -10,6 +10,10 @@ namespace OnlineMarket.Extensions
         {
             services.AddSingleton(_ => new MySqlConnection(connectionString));
             services.AddTransient<UsersRepository>();
+            services.AddTransient<BrandRepository>();
+            services.AddTransient<CategoryRepository>();
+            services.AddTransient<ProductRepository>();
+            services.AddTransient<OrderRepository>();
         }
 
         public static void AddServices(this IServiceCollection services)
@@ -17,6 +21,7 @@ namespace OnlineMarket.Extensions
 
             services.AddTransient<UserService>();
             services.AddTransient<AccountService>();
+            services.AddTransient<ProductService>();
         }
     }
 }
