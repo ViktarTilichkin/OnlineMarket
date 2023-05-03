@@ -9,6 +9,7 @@ namespace OnlineMarket.Services
         private readonly UsersRepository m_Service;
         public UserService(UsersRepository rep)
         {
+            new List<int>().Chunk(5);
             m_Service = rep ?? throw new ArgumentNullException(nameof(rep));
         }
         public async Task<List<User>> GetAll()

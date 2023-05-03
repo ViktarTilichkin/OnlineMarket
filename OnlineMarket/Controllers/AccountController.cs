@@ -22,7 +22,6 @@ namespace OnlineMarket.Controllers
         {
             return await m_AccountService.Token(user.Email, user.Pwd);
         }
-        [Authorize]
         [HttpPost("[action]")]
         public async Task<IActionResult> Logout()
         {

@@ -25,7 +25,7 @@ namespace OnlineMarket.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet("/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetByID(int id)
         {
             try
