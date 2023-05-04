@@ -18,7 +18,6 @@ namespace OnlineMarket.Extensions
 
         public static void AddServices(this IServiceCollection services)
         {
-
             services.AddTransient<UserService>();
             services.AddTransient<AccountService>();
             services.AddTransient<ProductService>();
