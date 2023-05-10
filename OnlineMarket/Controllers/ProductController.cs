@@ -13,6 +13,7 @@ namespace OnlineMarket.Controllers
         {
             m_ProductService = productService;
         }
+        [ResponseCache(Duration = 20)]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -28,14 +29,15 @@ namespace OnlineMarket.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByID(int id)
         {
-            try
-            {
-                return Ok(await m_ProductService.GetById(id));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            //try
+            //{
+            //    return Ok(await m_ProductService.GetById(id));
+            //}
+            //catch (Exception ex)
+            //{
+            //    return BadRequest(ex.Message);
+            //}
+            return Ok(await m_ProductService.GetById(id));
         }
         [HttpPost("create")]
         public async Task<IActionResult> CreateUser()

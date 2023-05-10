@@ -36,6 +36,7 @@ namespace OnlineMarket.Services
         }
         public async Task<ViewProduct> GetById(int id)
         {
+            if (id <= 0) throw new ArgumentNullException(nameof(id));
             Product prod = await m_Prod.GetById(id);
             ViewProduct product = new ViewProduct();
             product.Id = prod.Id;

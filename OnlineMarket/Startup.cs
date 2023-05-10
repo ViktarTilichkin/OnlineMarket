@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OnlineMarket.Extensions;
+using OnlineMarket.Middleware;
 using OnlineMarket.Options;
 
 namespace OnlineMarket.Stratup
@@ -22,6 +23,8 @@ namespace OnlineMarket.Stratup
             // Добавление сервисов, использующих ConnectionString
             services.AddRepositories(connectionString);
             services.AddServices();
+
+            services.AddMemoryCache();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
@@ -89,9 +92,12 @@ namespace OnlineMarket.Stratup
 
             app.UseHttpsRedirection();
 
+            app.UseMiddleware<ExceptionMiddleware>();
+
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseResponseCaching(); // добавляем Middleware кэширования
 
             app.UseEndpoints(endpoints =>
             {
