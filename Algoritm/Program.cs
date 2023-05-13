@@ -15,7 +15,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
             if()
         }
 
-        Exception 
+        Exception    
         static public bool IsOperator(string token)
         {
             return token == "+" || token == "-" || token == "*" || token == "/";
