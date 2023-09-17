@@ -21,7 +21,7 @@ namespace OnlineMarket.Services
             return await m_Service.GetById(id);
         }
         public async Task<User> Create(User user)
-        {
+        {    
             return await m_Service.Create(user);
         }
         public async Task<User> Update(User user)
