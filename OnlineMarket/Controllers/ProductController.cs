@@ -21,7 +21,7 @@ namespace OnlineMarket.Controllers
             {
                 return Ok(await m_ProductService.GetAll());
             }
-            catch (Exception ex)
+            catch (Exception ex)  
             {
                 return BadRequest(ex.Message);
             }
